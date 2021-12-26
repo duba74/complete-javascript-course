@@ -26,4 +26,78 @@ const restaurant = {
       close: 24,
     },
   },
+
+  order: function (starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
+
+  orderPasta: function (ing1, ing2, ing3) {
+    console.log(`Here is you pasta with ${ing1}, ${ing2}, and ${ing3}`);
+  },
 };
+
+// const ingredients = [
+//   prompt('Lets make pasta, ingredient 1?'),
+//   prompt('Lets make pasta, ingredient 2?'),
+//   prompt('Lets make pasta, ingredient 3?'),
+// ];
+
+// restaurant.orderPasta(...ingredients);
+
+const newRestaurant = { foundedIn: 1983, ...restaurant, founder: 'Luigi' };
+
+const add = function (...numbers) {
+  console.log(numbers);
+  let sum = null;
+  for (let i = 0; i < numbers.length; i++) {
+    sum += numbers[i];
+  }
+  return sum;
+};
+
+console.log(add(1, 4, 5, 3, 6));
+
+// restaurant.mainMenu = [...restaurant.mainMenu, 'Gnocci'];
+
+// const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+
+// const {
+//   menu = [],
+//   name: restaurantName = [],
+//   openingHours: hours = [],
+//   categories: tags = [],
+// } = restaurant;
+
+// let a = 111;
+// let b = 999;
+// const obj = { a: 1, b: 4 };
+
+// ({ a, b } = obj);
+
+// const {
+//   fri: { open: ouvert, close: ferme },
+// } = restaurant.openingHours;
+
+// let [first, , second, third] = restaurant.categories;
+
+// console.log(first);
+// console.log(second);
+// console.log(third);
+
+// [third, second, first] = [first, second, third];
+
+// console.log(first);
+// console.log(second);
+// console.log(third);
+
+// const [starterItem, mainItem] = restaurant.order(2, 0);
+
+// console.log(`The client ordered ${mainItem} with a ${starterItem} starter`);
+
+// const nested = [2, 3, [4, 5]];
+
+// const [a, , [b, c]] = nested;
+
+// console.log(a);
+// console.log(b);
+// console.log(c);
