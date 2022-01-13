@@ -65,12 +65,78 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // LECTURES
 
+/////////////////////////////////////////////////
+
+let arr = ['a', 'b', 'c', 'd', 'e'];
+
+// // SLICE
+// console.log(arr.slice(2));
+// console.log(arr.slice(2, 4));
+// console.log(arr.slice(-2));
+// console.log(arr.slice(0, -3));
+// console.log(arr.slice());
+// console.log([...arr]);
+
+// // SPLICE - Mutates
+// // console.log(arr.splice(2));
+// arr.splice(-1);
+// let arr2 = arr.splice(1, 2);
+// console.log(arr);
+// console.log(arr2);
+
+// // REVERSE - Mutates
+// let arr3 = ['z', 'y', 'x', 'w', 'v'];
+// console.log(arr3.reverse());
+// console.log(arr3);
+
+// // CONCAT
+// let arr4 = arr.concat(arr3);
+// console.log([...arr, ...arr3]);
+// console.log(arr4);
+
+// // JOIN
+// console.log(arr3.join('-'));
+
+// // AT
+// console.log(arr[4]);
+// console.log(arr.at(4));
+
+// console.log(arr[arr.length - 1]);
+// console.log(arr.slice(-1)[0]);
+// console.log(arr.at(-1));
+
+// console.log('arthur'.at(3));
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// for (const [i, movement] of movements.entries()) {
+//   if (movement > 0) {
+//     console.log(`Movement ${i} - You deposited ${movement}`);
+//   } else {
+//     console.log(`Movement ${i} - You withdrew ${Math.abs(movement)}`);
+//   }
+// }
+
+movements.forEach((mov, i, arr) => {
+  if (mov > 0) {
+    console.log(`Movement ${i} - You deposited ${mov}`);
+  } else {
+    console.log(`Movement ${i} - You withdrew ${Math.abs(mov)}`);
+  }
+});
+
 const currencies = new Map([
   ['USD', 'United States dollar'],
   ['EUR', 'Euro'],
   ['GBP', 'Pound sterling'],
 ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+currencies.forEach((value, key, map) => {
+  console.log(`${key}: ${value}`);
+});
 
-/////////////////////////////////////////////////
+const currenciesUnique = new Set(['USD', 'GBP', 'EUR', 'USD', 'USD']);
+console.log(currenciesUnique);
+currenciesUnique.forEach((value, _, set) => {
+  console.log(`${value}: ${value}`);
+});
