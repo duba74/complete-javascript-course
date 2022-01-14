@@ -61,13 +61,58 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+const displayMovements = function (movements) {
+  containerMovements.innerHTML = '';
+
+  movements.forEach((mov, i) => {
+    const movType = mov >= 0 ? 'deposit' : 'withdrawal';
+
+    const html = `
+    <div class="movements__row">
+      <div class="movements__type movements__type--${movType}">${
+      i + 1
+    } ${movType}</div>
+      <div class="movements__value">${mov}€</div>
+    </div>
+    `;
+
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+
+displayMovements(account1.movements);
+
+const user = 'Clinton Gregory Lee';
+
+const createUsernames = function (accts) {
+  accts.forEach(acct => {
+    acct.username = acct.owner
+      .toLowerCase()
+      .split(' ')
+      .map(word => word[0])
+      .join('');
+  });
+};
+
+createUsernames(accounts);
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const deposits = movements.filter(mov => mov > 0);
+console.log(movements);
+console.log(deposits);
+
+const withdrawals = movements.filter(mov => mov <= 0);
+console.log(movements);
+console.log(withdrawals);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
 
 /////////////////////////////////////////////////
 
-let arr = ['a', 'b', 'c', 'd', 'e'];
+// let arr = ['a', 'b', 'c', 'd', 'e'];
 
 // // SLICE
 // console.log(arr.slice(2));
@@ -107,7 +152,7 @@ let arr = ['a', 'b', 'c', 'd', 'e'];
 
 // console.log('arthur'.at(3));
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // for (const [i, movement] of movements.entries()) {
 //   if (movement > 0) {
@@ -117,26 +162,78 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 //   }
 // }
 
-movements.forEach((mov, i, arr) => {
-  if (mov > 0) {
-    console.log(`Movement ${i} - You deposited ${mov}`);
-  } else {
-    console.log(`Movement ${i} - You withdrew ${Math.abs(mov)}`);
-  }
-});
+// movements.forEach((mov, i, arr) => {
+//   if (mov > 0) {
+//     console.log(`Movement ${i} - You deposited ${mov}`);
+//   } else {
+//     console.log(`Movement ${i} - You withdrew ${Math.abs(mov)}`);
+//   }
+// });
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
+// const currencies = new Map([
+//   ['USD', 'United States dollar'],
+//   ['EUR', 'Euro'],
+//   ['GBP', 'Pound sterling'],
+// ]);
 
-currencies.forEach((value, key, map) => {
-  console.log(`${key}: ${value}`);
-});
+// currencies.forEach((value, key, map) => {
+//   console.log(`${key}: ${value}`);
+// });
 
-const currenciesUnique = new Set(['USD', 'GBP', 'EUR', 'USD', 'USD']);
-console.log(currenciesUnique);
-currenciesUnique.forEach((value, _, set) => {
-  console.log(`${value}: ${value}`);
-});
+// const currenciesUnique = new Set(['USD', 'GBP', 'EUR', 'USD', 'USD']);
+// console.log(currenciesUnique);
+// currenciesUnique.forEach((value, _, set) => {
+//   console.log(`${value}: ${value}`);
+// });
+
+// Coding Challenge #1
+
+/* 
+Julia and Kate are doing a study on dogs. So each of them asked 5 dog owners about their dog's age, and stored the data into an array (one array for each). For now, they are just interested in knowing whether a dog is an adult or a puppy. A dog is an adult if it is at least 3 years old, and it's a puppy if it's less than 3 years old.
+
+Create a function 'checkDogs', which accepts 2 arrays of dog's ages ('dogsJulia' and 'dogsKate'), and does the following things:
+
+1. Julia found out that the owners of the FIRST and the LAST TWO dogs actually have cats, not dogs! So create a shallow copy of Julia's array, and remove the cat ages from that copied array (because it's a bad practice to mutate function parameters)
+2. Create an array with both Julia's (corrected) and Kate's data
+3. For each remaining dog, log to the console whether it's an adult ("Dog number 1 is an adult, and is 5 years old") or a puppy ("Dog number 2 is still a puppy 🐶")
+4. Run the function for both test datasets
+
+HINT: Use tools from all lectures in this section so far 😉
+
+TEST DATA 1: Julia's data [3, 5, 2, 12, 7], Kate's data [4, 1, 15, 8, 3]
+TEST DATA 2: Julia's data [9, 16, 6, 8, 3], Kate's data [10, 5, 6, 1, 4]
+
+GOOD LUCK 😀
+*/
+
+// const dogsJulia = [3, 5, 2, 12, 7];
+// const dogsKate = [4, 1, 15, 8, 3];
+
+// function checkDogs(arr1, arr2) {
+//   const arr1dogs = arr1.slice(1, -2);
+//   const allDogs = arr1dogs.concat(arr2);
+//   allDogs.forEach((dog, i) => {
+//     const msg =
+//       dog < 3
+//         ? console.log(`Dog number ${i + 1} is still a puppy 🐶`)
+//         : console.log(
+//             `Dog number ${i + 1} is an adult, and it is ${dog} years old`
+//           );
+//   });
+// }
+
+// checkDogs(dogsJulia, dogsKate);
+
+// const eurToUsd = 1.1;
+
+// const converted = movements.map(mov => mov * eurToUsd);
+
+// console.log(movements);
+// console.log(converted);
+
+// const movDesc = movements.map((mov, i) =>
+//   mov > 0
+//     ? `Movement ${i + 1} - You deposited ${mov}`
+//     : `Movement ${i + 1} - You withdrew ${Math.abs(mov)}`
+// );
+// console.log(movDesc);
