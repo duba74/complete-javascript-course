@@ -127,9 +127,13 @@ const updateUI = function (acc) {
 
 createUsernames(accounts);
 
+/*****************************
 // Event handlers
+*****************************/
+
 let currentAccount;
 
+// Login
 btnLogin.addEventListener('click', e => {
   e.preventDefault();
 
@@ -177,6 +181,38 @@ btnTransfer.addEventListener('click', e => {
 
     updateUI(currentAccount);
   }
+});
+
+// Loan
+btnLoan.addEventListener('click', e => {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    currentAccount.movements.push(amount);
+    updateUI(currentAccount);
+  }
+  inputLoanAmount.value = '';
+});
+
+// Close account
+btnClose.addEventListener('click', e => {
+  e.preventDefault();
+
+  if (
+    currentAccount.username === inputCloseUsername.value &&
+    currentAccount.pin === Number(inputClosePin.value)
+  ) {
+    const index = accounts.findIndex(
+      acc => acc.username === currentAccount.username
+    );
+
+    accounts.splice(index, 1);
+
+    containerApp.style.opacity = 0;
+  }
+  inputClosePin.value = inputCloseUsername.value = '';
 });
 
 /////////////////////////////////////////////////
@@ -393,7 +429,7 @@ GOOD LUCK 😀
 // console.log(totalDepositsUSD);
 
 // FIND
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // const firstWithdrawal = movements.find((mov, i, arr) => mov < 0);
 // console.log(firstWithdrawal);
@@ -401,3 +437,18 @@ GOOD LUCK 😀
 // console.log(accounts);
 
 // const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+
+// SOME
+// console.log(movements);
+// console.log(movements.includes(-130));
+
+// const anyDeposits = movements.some(mov => mov > 5000);
+// console.log(anyDeposits);
+
+// EVERY
+console.log(account4.movements.every(mov => mov > 0));
+
+// Separate callback
+const deposit = mov => mov > 0;
+
+console.log(movements.some(deposit));
