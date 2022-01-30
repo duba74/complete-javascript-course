@@ -516,3 +516,308 @@ GOOD LUCK 😀
 //   })
 // );
 // console.log(movements.sort((a, b) => b - a));
+
+// const x = new Array(7);
+// console.log(x);
+
+// x.fill(1, 3, 5);
+// console.log(x);
+
+// const y = Array.from({ length: 7 }, () => 1);
+
+// console.log(y);
+
+// const z = Array.from({ length: 7 }, (_, i) => i + i);
+// console.log(z);
+
+// const aa = Array.from(
+//   { length: 100 },
+//   (_, i) => Math.trunc(Math.random() * 6) + 1
+// );
+
+// console.log(aa);
+
+// labelBalance.addEventListener('click', () => {
+//   const movementsUI = Array.from(
+//     document.querySelectorAll('.movements__value'),
+//     el => Number(el.textContent.replace('€', ''))
+//   );
+//   console.log(movementsUI);
+
+//   const movementsUI2 = [...document.querySelectorAll('.movements__value')].map(
+//     el => Number(el.textContent.replace('€', ''))
+//   );
+//   console.log(movementsUI2);
+// });
+
+/***************************************
+ Mutate array
+***************************************/
+
+// Add to original
+// arr.push()              (end)
+// arr.unshift()           (start)
+
+// Remove from original
+// arr.pop()               (end)
+// arr.shift()             (start)
+// arr.splice()            (any)
+
+// Others
+// arr.reverse()
+// arr.sort()
+// arr.fill()
+
+/***************************************
+ Create new array
+***************************************/
+
+// Computed from original
+// arr.map()               (loop)
+
+// Filtered using condition
+// arr.filter()
+
+// Portion of original
+// arr.slice()
+
+// Adding original to other
+// arr.concat()
+
+// Flattening the original
+// arr.flat()
+// arr.flatMap()
+
+/***************************************
+ Get array index
+***************************************/
+
+// Based on value
+// arr.indexOf()
+
+// Based on test condition
+// arr.findIndex()
+
+/***************************************
+ Get array element
+***************************************/
+
+// Based on test condition
+// arr.find()
+
+/***************************************
+ Does array contain certain element
+***************************************/
+// These return boolean values
+
+// Based on value
+// arr.includes()
+
+// Based on test condition
+// arr.some()
+// arr.every()
+
+/***************************************
+ Get a new string
+***************************************/
+
+// Based on separator string
+// arr.join()
+
+/***************************************
+ Transfom to a value
+***************************************/
+
+// Based on accumulator
+// arr.reduce()
+// (Boil down array to single value of any type: number, string, boolean, or new array or object)
+
+/***************************************
+Loop over the array
+***************************************/
+
+// Basd on callback
+// arr.forEach()
+// (Does not create a new array, just loops over it)
+
+// const bankDepositSum = accounts
+//   .map(acc => acc.movements)
+//   .flat()
+//   .filter(mov => mov > 0)
+//   .reduce((sum, mov) => sum + mov);
+
+// const bankDepositSum = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(mov => mov > 0)
+//   .reduce((sum, mov) => sum + mov, 0);
+// console.log(bankDepositSum);
+
+// const depositsOver1000 = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(mov => mov > 0)
+//   .reduce((count, mov) => (mov >= 1000 ? ++count : count), 0);
+
+// // const depositsOver1000 = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(mov => mov >= 1000).length;
+// console.log(depositsOver1000);
+
+// const { deposits, withdrawals } = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce(
+//     (sums, cur) => {
+//       // cur > 0 ? (sums.deposits += cur) : (sums.withdrawals += cur);
+//       sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur;
+//       return sums;
+//     },
+// {}
+//     { deposits: 0, withdrawals: 0 }
+//   );
+// console.log(deposits);
+// console.log(withdrawals);
+
+// const convertTitleCase = function (title) {
+//   const capitalize = str => str[0].toUpperCase() + str.slice(1);
+
+//   const exceptions = ['a', 'an', 'and', 'the', 'but', 'or', 'on', 'in', 'as'];
+
+//   const titleCase = title
+//     .toLowerCase()
+//     .replace(/\s+/g, ' ')
+//     .trim()
+//     .split(' ')
+//     .map(word => (exceptions.includes(word) ? word : capitalize(word)))
+//     .join(' ');
+
+//   return capitalize(titleCase);
+// };
+// console.log(convertTitleCase('this is a nice title'));
+// console.log(convertTitleCase('and this is a   LONG    title but not too long'));
+// console.log(convertTitleCase('this is another title with an EXAMPLE'));
+
+// Coding Challenge #4
+
+/* 
+Julia and Kate are still studying dogs, and this time they are studying if dogs are eating too much or too little.
+Eating too much means the dog's current food portion is larger than the recommended portion, and eating too little is the opposite.
+Eating an okay amount means the dog's current food portion is within a range 10% above and 10% below the recommended portion (see hint).
+
+1. Loop over the array containing dog objects, and for each dog, calculate the recommended food portion and add it to the object as a new property. Do NOT create a new array, simply loop over the array. Forumla: recommendedFood = weight ** 0.75 * 28. (The result is in grams of food, and the weight needs to be in kg)
+2. Find Sarah's dog and log to the console whether it's eating too much or too little. HINT: Some dogs have multiple owners, so you first need to find Sarah in the owners array, and so this one is a bit tricky (on purpose) 🤓
+3. Create an array containing all owners of dogs who eat too much ('ownersEatTooMuch') and an array with all owners of dogs who eat too little ('ownersEatTooLittle').
+4. Log a string to the console for each array created in 3., like this: "Matilda and Alice and Bob's dogs eat too much!" and "Sarah and John and Michael's dogs eat too little!"
+5. Log to the console whether there is any dog eating EXACTLY the amount of food that is recommended (just true or false)
+6. Log to the console whether there is any dog eating an OKAY amount of food (just true or false)
+7. Create an array containing the dogs that are eating an OKAY amount of food (try to reuse the condition used in 6.)
+8. Create a shallow copy of the dogs array and sort it by recommended food portion in an ascending order (keep in mind that the portions are inside the array's objects)
+
+HINT 1: Use many different tools to solve these challenges, you can use the summary lecture to choose between them 😉
+HINT 2: Being within a range 10% above and below the recommended portion means: current > (recommended * 0.90) && current < (recommended * 1.10). Basically, the current portion should be between 90% and 110% of the recommended portion.
+
+TEST DATA:
+const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+  { weight: 32, curFood: 340, owners: ['Michael'] }
+];
+
+GOOD LUCK 😀
+*/
+
+const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+  { weight: 32, curFood: 340, owners: ['Michael'] },
+];
+
+// const recommendedFood = weight ** 0.75 * 28;
+
+dogs.forEach(
+  dog => (dog.recommendedFood = Math.round(dog.weight ** 0.75 * 28))
+);
+
+console.log(dogs);
+
+dogs.forEach(dog => {
+  if (dog.owners.includes('Sarah')) {
+    const ratio = dog.curFood / dog.recommendedFood;
+    const recMax = Math.round(dog.recommendedFood * 1.1);
+    const recMin = Math.round(dog.recommendedFood * 0.9);
+    console.log(ratio, dog.recommendedFood, recMax, recMin);
+    let amount;
+
+    if (ratio > 1.1) amount = 'too much';
+    else if (ratio < 0.9) amount = 'too little';
+    else amount = 'the right amount of';
+
+    console.log(
+      `Sarah's dog is eating ${amount} food.\nIt's ideal feeding amount is between ${recMin} g and ${recMax} g,\nand it is receiving ${dog.curFood} g`
+    );
+  }
+});
+
+const ownersEatTooMuch = dogs
+  .reduce((arr, dog) => {
+    if (dog.curFood / dog.recommendedFood > 1.1) {
+      arr.push(dog.owners);
+    }
+    return arr;
+  }, [])
+  .flat();
+
+const ownersEatTooLittle = dogs
+  .reduce((arr, dog) => {
+    if (dog.curFood / dog.recommendedFood < 0.9) {
+      arr.push(dog.owners);
+    }
+    return arr;
+  }, [])
+  .flat();
+
+console.log(ownersEatTooMuch);
+console.log(ownersEatTooLittle);
+
+const arrToStr = function (arr) {
+  const modArr = arr.map((el, i, arr) => {
+    if (arr.length - i === 1) {
+      return el + `'s`;
+    } else if (arr.length - i === 2) {
+      return el + ` and `;
+    } else {
+      return el + `, `;
+    }
+  });
+  return modArr;
+};
+
+const ownersDogsStatus = function (arr, status) {
+  const arrLen = arr.length;
+  console.log(
+    `${arrToStr(arr).join('')} ${
+      arrLen === 1 ? 'dog eats' : 'dogs eat'
+    } ${status}.`
+  );
+};
+ownersDogsStatus(ownersEatTooMuch, 'too much');
+ownersDogsStatus(ownersEatTooLittle, 'too little');
+
+console.log(dogs.some(dog => dog.curFood === dog.recommendedFood));
+console.log(
+  dogs.some(
+    dog =>
+      Math.abs(dog.curFood - dog.recommendedFood) < dog.recommendedFood * 0.1
+  )
+);
+
+const dogsOK = dogs.filter(
+  dog => Math.abs(dog.curFood - dog.recommendedFood) < dog.recommendedFood * 0.1
+);
+
+console.log(dogsOK);
+
+const dogsSorted = dogs
+  .slice()
+  .sort((a, b) => a.recommendedFood - b.recommendedFood);
+console.log(dogsSorted);
