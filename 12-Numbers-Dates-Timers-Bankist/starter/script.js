@@ -81,19 +81,29 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // Functions
 
-const displayMovements = function (movements, sort = false) {
+const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
-  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+  const movs = sort
+    ? acc.movements.slice().sort((a, b) => a - b)
+    : acc.movements;
 
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
+
+    const date = new Date(acc.movementsDates[i]);
+
+    const day = `${date.getDate()}`.padStart(2, 0);
+    const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    const year = `${date.getFullYear()}`;
+    const displayDate = `${day}/${month}/${year}`;
 
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
+        <div class="movements__date">${displayDate}</div>
         <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
@@ -142,7 +152,7 @@ createUsernames(accounts);
 
 const updateUI = function (acc) {
   // Display movements
-  displayMovements(acc.movements);
+  displayMovements(acc);
 
   // Display balance
   calcDisplayBalance(acc);
@@ -154,6 +164,11 @@ const updateUI = function (acc) {
 ///////////////////////////////////////
 // Event handlers
 let currentAccount;
+
+// FAKE ALWAYS LOGGED IN
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = 100;
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
@@ -170,6 +185,15 @@ btnLogin.addEventListener('click', function (e) {
       currentAccount.owner.split(' ')[0]
     }`;
     containerApp.style.opacity = 100;
+
+    // Create current date
+    const now = new Date();
+    const day = `${now.getDate()}`.padStart(2, 0);
+    const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    const year = now.getFullYear();
+    const hour = now.getHours();
+    const min = `${now.getMinutes()}`.padStart(2, 0);
+    labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
 
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
@@ -198,6 +222,10 @@ btnTransfer.addEventListener('click', function (e) {
     currentAccount.movements.push(-amount);
     receiverAcc.movements.push(amount);
 
+    // Add date of transfer
+    currentAccount.movementsDates.push(new Date().toISOString());
+    receiverAcc.movementsDates.push(new Date().toISOString());
+
     // Update UI
     updateUI(currentAccount);
   }
@@ -211,6 +239,9 @@ btnLoan.addEventListener('click', function (e) {
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
     currentAccount.movements.push(amount);
+
+    // Add date of transfer
+    currentAccount.movementsDates.push(new Date().toISOString());
 
     // Update UI
     updateUI(currentAccount);
@@ -244,7 +275,7 @@ btnClose.addEventListener('click', function (e) {
 let sorted = false;
 btnSort.addEventListener('click', function (e) {
   e.preventDefault();
-  displayMovements(currentAccount.movements, !sorted);
+  displayMovements(currentAccount, !sorted);
   sorted = !sorted;
 });
 
@@ -278,56 +309,56 @@ btnSort.addEventListener('click', function (e) {
 // console.log(Number.isInteger(23 / 0));
 // console.log(Number.isInteger(23.5));
 
-console.log(Math.sqrt(25));
-console.log(25 ** (1 / 2));
-console.log(8 ** (1 / 3));
+// console.log(Math.sqrt(25));
+// console.log(25 ** (1 / 2));
+// console.log(8 ** (1 / 3));
 
-console.log(Math.max(1, 2, 3));
-console.log(Math.max(1, '2', 3));
-console.log(Math.max(1, '2px', 3));
+// console.log(Math.max(1, 2, 3));
+// console.log(Math.max(1, '2', 3));
+// console.log(Math.max(1, '2px', 3));
 
-console.log(Math.min(1, 2, 3));
+// console.log(Math.min(1, 2, 3));
 
-console.log(Math.PI * Number.parseFloat('10px') ** 2);
+// console.log(Math.PI * Number.parseFloat('10px') ** 2);
 
-console.log(Math.trunc(Math.random() * 6) + 1);
+// console.log(Math.trunc(Math.random() * 6) + 1);
 
-const randomInt = (min, max) =>
-  Math.floor(Math.random() * (max + 1 - min) + min);
+// const randomInt = (min, max) =>
+//   Math.floor(Math.random() * (max + 1 - min) + min);
 
-const y = Array.from({ length: 100 }, () => randomInt(5, 10));
-console.log(y);
+// const y = Array.from({ length: 100 }, () => randomInt(5, 10));
+// console.log(y);
 
-console.log(Math.trunc(23.3));
+// console.log(Math.trunc(23.3));
 
-console.log(Math.round(23.3));
-console.log(Math.round(23.7));
+// console.log(Math.round(23.3));
+// console.log(Math.round(23.7));
 
-console.log(Math.ceil(23.3));
-console.log(Math.ceil(23.7));
+// console.log(Math.ceil(23.3));
+// console.log(Math.ceil(23.7));
 
-console.log(Math.floor(23.3));
-console.log(Math.floor(23.7));
+// console.log(Math.floor(23.3));
+// console.log(Math.floor(23.7));
 
-console.log(Math.trunc(-23.3));
-console.log(Math.floor(-23.3));
+// console.log(Math.trunc(-23.3));
+// console.log(Math.floor(-23.3));
 
-console.log((2.7).toFixed(0));
-console.log((2.758264).toFixed(3));
-console.log((2.74865).toFixed(2));
-console.log(+(2.74865).toFixed(2));
+// console.log((2.7).toFixed(0));
+// console.log((2.758264).toFixed(3));
+// console.log((2.74865).toFixed(2));
+// console.log(+(2.74865).toFixed(2));
 
-console.log(5 % 2);
-console.log(5 / 2);
+// console.log(5 % 2);
+// console.log(5 / 2);
 
-console.log(8 % 3);
+// console.log(8 % 3);
 
-console.log(6 % 2);
-console.log(7 % 2);
+// console.log(6 % 2);
+// console.log(7 % 2);
 
-const isEven = n => n % 2 === 0;
+// const isEven = n => n % 2 === 0;
 
-console.log(isEven(9));
+// console.log(isEven(9));
 
 // labelBalance.addEventListener('click', function () {
 //   [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
@@ -336,5 +367,47 @@ console.log(isEven(9));
 //   });
 // });
 
-const diameter = 287_460_000_000;
-console.log(diameter);
+// const diameter = 287_460_000_000;
+// console.log(diameter);
+
+// const list = ['a', 'b', 'c', 'd'];
+
+// let output = '<ol>';
+
+// list.forEach(el => {
+//   output += '<li>' + el + '</li>';
+//   console.log(output);
+// });
+
+// output += '</ol>';
+// console.log(output);
+
+// console.log(new Date('Feb 03 2022 23:00:41'));
+// console.log(new Date('September 5 1986 11:06:48'));
+
+// console.log(new Date(account1.movementsDates[0]));
+
+// console.log(new Date(1986, 8, 5, 11, 6, 48));
+// console.log(new Date(1986, 0, 248, 11, 6, 48));
+
+// console.log(new Date(0));
+// console.log(new Date(3 * 24 * 60 * 60 * 1000));
+
+// const now = new Date();
+// console.log(now);
+// console.log('Year: ' + now.getFullYear());
+// console.log('Month: ' + now.getMonth());
+// console.log('Date: ' + now.getDate());
+// console.log('Day: ' + now.getDay());
+// console.log('Hours: ' + now.getHours());
+// console.log('Minutes: ' + now.getMinutes());
+// console.log('Seconds: ' + now.getSeconds());
+// console.log('ISO string: ' + now.toISOString());
+// console.log('Timestamp: ' + now.getTime());
+
+// console.log(new Date(1643926478453));
+
+// console.log(Date.now());
+
+// now.setFullYear(2088);
+// console.log(now);
